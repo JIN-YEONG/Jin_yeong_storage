@@ -6,7 +6,7 @@ x = np.array(range(1,101))
 y = np.array(range(1,101))
 
 # 1~60, 61~80, 81~100   train, val, test
-
+# 데이터 슬라이싱
 x_train = x[:60]
 y_train = y[:60]
 
@@ -15,6 +15,10 @@ y_val = y[60:80]
 
 x_test = x[80:]
 y_test = y[80:]
+
+print(x_train.shape, y_train.shape)   # (60,) (60,)
+print(x_val.shape, y_val.shape)   # (20,) (20,)
+print(x_test.shape, y_test.shape)   # (20,) (20,)
 
 
 # 2. 모델 구성
@@ -49,16 +53,14 @@ lose,acc = model.evaluate(x_test,y_test,batch_size=1)
 print('acc: ',acc)   # acc는 회귀모델에서만 사용할 수 있다.
 
 y_predict = model.predict(x_test)   # 모델의 예측값
-print(y_predict)
+print('Predict\n',y_predict)
 
 # RMSE 구하기
-# 
 from sklearn.metrics import mean_squared_error
 
 def RMSE(y_test, y_predict):   # 평균 제곱근 오차
     return np.sqrt(mean_squared_error(y_test, y_predict))   # root(mean((y_test - y_predict)^2))
-# 루트를 씨우는 이유 
-# 값을 작게 만들기 위해
+# 루트를 씨우는 이유 -> 값을 작게 만들기 위해
 
 print('RMSE: ', RMSE(y_test, y_predict))   # 작을 수록 좋다.
 
@@ -67,3 +69,31 @@ from sklearn.metrics import r2_score
 
 r2_y_predict = r2_score(y_test, y_predict)   # 1에 가까울수록 좋음
 print('R2:', r2_y_predict)
+
+
+'''
+acc:  3.2014213502407077e-11
+Predict
+ [[80.999985]
+ [82.00001 ]
+ [83.      ]
+ [83.99999 ]
+ [85.      ]
+ [85.99999 ]
+ [86.99999 ]
+ [87.99999 ]
+ [89.      ]
+ [89.99999 ]
+ [90.99999 ]
+ [91.99999 ]
+ [93.      ]
+ [94.      ]
+ [94.99999 ]
+ [95.99999 ]
+ [97.      ]
+ [98.00001 ]
+ [98.99999 ]
+ [99.99999 ]]
+RMSE:  7.0339542063086605e-06
+R2: 0.999999999998512
+'''

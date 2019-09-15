@@ -8,16 +8,14 @@ import numpy as np
 # 여러개의 데이터가 들어가서 1개의 데이터가 나온다
 x = np.array([range(100), range(311,411),range(100)])
 y = np.array([range(501,601)])
+# print(x.shape)   # (3, 100)
+# print(y.shape)   # (1, 100)
 
-
-print(x.shape)
-print(y.shape)
-
+# 행렬 전치
 x = np.transpose(x)
 y = np.transpose(y)
-
-print(x.shape)
-print(y.shape)
+# print(x.shape)   # (100, 3)
+# print(y.shape)   # (100, 1)
 
 
 
@@ -66,16 +64,14 @@ lose,acc = model.evaluate(x_test,y_test,batch_size=1)
 print('acc: ',acc)   # acc는 회귀모델에서만 사용할 수 있다.
 
 y_predict = model.predict(x_test)   # 모델의 예측값
-print(y_predict)
+print('Predict\n',y_predict)
 
 # RMSE 구하기
-# 
 from sklearn.metrics import mean_squared_error
 
 def RMSE(y_test, y_predict):   # 평균 제곱근 오차
     return np.sqrt(mean_squared_error(y_test, y_predict))   # root(mean((y_test - y_predict)^2))
-# 루트를 씨우는 이유 
-# 값을 작게 만들기 위해
+# 루트를 씨우는 이유 -> 값을 작게 만들기 위해
 
 print('RMSE: ', RMSE(y_test, y_predict))   # 작을 수록 좋다.
 
@@ -84,3 +80,32 @@ from sklearn.metrics import r2_score
 
 r2_y_predict = r2_score(y_test, y_predict)   # 1에 가까울수록 좋음
 print('R2:', r2_y_predict)
+
+
+
+'''
+acc:  1.3504177331924438e-08
+Predict
+ [[553.0001 ]
+ [559.0002 ]
+ [600.     ]
+ [542.0001 ]
+ [594.00006]
+ [584.0001 ]
+ [506.00006]
+ [524.0001 ]
+ [549.0001 ]
+ [555.00006]
+ [571.0002 ]
+ [504.00006]
+ [516.00006]
+ [546.0002 ]
+ [569.0001 ]
+ [567.0001 ]
+ [589.0001 ]
+ [527.0002 ]
+ [588.0001 ]
+ [583.00006]]
+RMSE:  0.00012053477574543151
+R2: 0.999999999982445
+'''

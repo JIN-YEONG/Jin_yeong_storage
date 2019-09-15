@@ -6,7 +6,7 @@ x = np.array(range(1,101))
 y = np.array(range(1,101))
 
 # 1~60, 61~80, 81~100   train, val, test
-
+# 데이터 슬라이싱
 # x_train = x[:60]
 # y_train = y[:60]
 
@@ -16,6 +16,8 @@ y = np.array(range(1,101))
 # x_test = x[80:]
 # y_test = y[80:]
 
+# 데이터를 슬라이싱하고 렌덤하고 섞어주는 함수
+# sklearn에는 유용한 함수들이 많다.
 from sklearn.model_selection import train_test_split
 
 x_train, x_test, y_train, y_test = train_test_split(
@@ -26,8 +28,9 @@ x_val, x_test, y_val, y_test = train_test_split(
     x_test,y_test, random_state = 66, test_size = 0.5
 )
 
-
-
+# print(x_train.shape, y_train.shape)   # (60,) (60,)
+# print(x_test.shape, y_test.shape)   # (20,) (20,)
+# print(x_val.shape, y_val.shape)   # (20,) (20,)
 
 # 2. 모델 구성
 from keras.models import Sequential
@@ -61,16 +64,14 @@ lose,acc = model.evaluate(x_test,y_test,batch_size=1)
 print('acc: ',acc)   # acc는 회귀모델에서만 사용할 수 있다.
 
 y_predict = model.predict(x_test)   # 모델의 예측값
-print(y_predict)
+print('Predict\n',y_predict)
 
 # RMSE 구하기
-# 
 from sklearn.metrics import mean_squared_error
 
 def RMSE(y_test, y_predict):   # 평균 제곱근 오차
     return np.sqrt(mean_squared_error(y_test, y_predict))   # root(mean((y_test - y_predict)^2))
-# 루트를 씨우는 이유 
-# 값을 작게 만들기 위해
+# 루트를 씨우는 이유 -> 값을 작게 만들기 위해
 
 print('RMSE: ', RMSE(y_test, y_predict))   # 작을 수록 좋다.
 
@@ -79,3 +80,31 @@ from sklearn.metrics import r2_score
 
 r2_y_predict = r2_score(y_test, y_predict)   # 1에 가까울수록 좋음
 print('R2:', r2_y_predict)
+
+
+'''
+acc:  2.033136888712761e-06
+Predict
+ [[52.998848 ]
+ [58.998695 ]
+ [99.99769  ]
+ [41.999104 ]
+ [93.997856 ]
+ [83.99809  ]
+ [ 5.999973 ]
+ [23.999538 ]
+ [48.998936 ]
+ [54.998787 ]
+ [70.9984   ]
+ [ 4.0000205]
+ [15.999729 ]
+ [45.99901  ]
+ [68.99844  ]
+ [66.9985   ]
+ [88.99796  ]
+ [26.999466 ]
+ [87.99799  ]
+ [82.99811  ]]
+RMSE:  0.0014243559723777866
+R2: 0.999999997548616
+'''

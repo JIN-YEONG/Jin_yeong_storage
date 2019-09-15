@@ -55,24 +55,39 @@ model.fit(x_train,y_train,epochs=100)
 
 # 4. 평가 예측
 lose,acc = model.evaluate(x_test,y_test,batch_size=1)   
-print('acc: ',acc)   # acc는 회귀모델에서만 사용할 수 있다.
+print('mse: ',acc)   # acc는 회귀모델에서만 사용할 수 있다.
 
 y_predict = model.predict(x_test)   # 모델의 예측값
-print(y_predict)
+print('Predict\n',y_predict)
 
 # RMSE 구하기
-# 
 from sklearn.metrics import mean_squared_error
 
 def RMSE(y_test, y_predict):   # 평균 제곱근 오차
     return np.sqrt(mean_squared_error(y_test, y_predict))   # root(mean((y_test - y_predict)^2))
-# 루트를 씨우는 이유 
-# 값을 작게 만들기 위해
+# 루트를 씨우는 이유 -> 값을 작게 만들기 위해
 
 print('RMSE: ', RMSE(y_test, y_predict))   # 작을 수록 좋다.
 
 # R2 구하기
 from sklearn.metrics import r2_score
-
 r2_y_predict = r2_score(y_test, y_predict)   # 1에 가까울수록 좋음
 print('R2:', r2_y_predict)
+
+'''
+과적합된 모델
+mse:  222150047196774.4
+Predict
+ [[ -9802379.]
+ [-10863496.]
+ [-11925617.]
+ [-12988176.]
+ [-14051352.]
+ [-15116091.]
+ [-16181994.]
+ [-17248484.]
+ [-18315706.]
+ [-19383284.]]
+RMSE:  14904699.087990565
+R2: -26927279382247.098
+'''
