@@ -18,17 +18,16 @@ x_test = np.arange(1001,1101)
 y_test = np.arange(1101,1201)
 
 # x_train_mean = int(np.mean(x_train))
-
 # y_train_mean = int(np.mean(y_train))
 
-
 # x_test_mean = int(np.mean(x_test))
-
 # y_test_mean = int(np.mean(y_test))
 
 
-# input_data_x = np.arange(x_train_mean, x_test_mean+1)
-# input_data_y = np.arange(y_train_mean, y_test_mean+1)
+
+
+# input_data_x = np.array([x_train_mean, x_test_mean])
+# input_data_y = np.array([y_train_mean, y_test_mean])
 
 # print(input_data_x)
 # print(input_data_y)
@@ -44,10 +43,10 @@ from keras.layers import Dense
 
 model = Sequential()
 
-model.add(Dense(50,input_dim=1, activation='relu'))
-model.add(Dense(40))
-model.add(Dense(20))
-model.add(Dense(80))
+model.add(Dense(30,input_dim=1, activation='relu'))
+model.add(Dense(24))
+model.add(Dense(14))
+model.add(Dense(25))
 model.add(Dense(1))
 
 
